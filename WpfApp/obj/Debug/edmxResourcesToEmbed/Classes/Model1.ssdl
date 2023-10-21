@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ship">
+    <Key>
+      <PropertyRef Name="Shipid" />
+    </Key>
+    <Property Name="Shipid" Type="int" Nullable="false" />
+    <Property Name="ShipName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Displacement" Type="nvarchar" MaxLength="50" />
+    <Property Name="HomePort" Type="nvarchar" MaxLength="50" />
+    <Property Name="Captain" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="ShipCode" />
+    </Key>
+    <Property Name="ShipCode" Type="int" Nullable="false" />
+    <Property Name="Berth" Type="nvarchar" MaxLength="50" />
+    <Property Name="VisitPurpose" Type="nvarchar" MaxLength="50" />
+    <Property Name="Shipid" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Shipping_Ship1">
+    <End Role="Ship" Type="Self.Ship" Multiplicity="0..1" />
+    <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ship">
+        <PropertyRef Name="Shipid" />
+      </Principal>
+      <Dependent Role="Shipping">
+        <PropertyRef Name="Shipid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище DBModelContainer">
+    <EntitySet Name="Ship" EntityType="Self.Ship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Shipping_Ship1" Association="Self.FK_Shipping_Ship1">
+      <End Role="Ship" EntitySet="Ship" />
+      <End Role="Shipping" EntitySet="Shipping" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,83 @@
+﻿<Page x:Class="WpfApp.Pages.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1" >
+
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="1"
+                  x:Name="dtgShip"
+                  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,50" 
+                  VerticalAlignment="Center">
+            <DataGrid.Columns >
+                <DataGridTextColumn 
+                    Header="Судно" Width="*" 
+                    Binding="{Binding Ship.ShipName}"/>
+                <DataGridTextColumn
+                    Header="Цель визита" Width="*"
+                    Binding="{Binding VisitPurpose}"/>
+                <DataGridTextColumn
+                    Header="Причал" Width="*"
+                    Binding="{Binding Berth}"/>
+
+                <DataGridTemplateColumn
+                    Header="Действия"
+                    Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnEdit"
+                                    Click="BtnEdit_Click"
+                                    Content="Изменить"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical"
+                    VerticalAlignment="Top"
+                    Height="400">
+            <TextBlock Text="Поиск по цели визита"/>
+
+            <ComboBox Name="CmbVisit"
+                      SelectionChanged="CmbVisit_SelectionChanged"
+                      Margin="5"/>
+
+
+            <Button Name="BtnResetFiltr"
+                    Content="Сброс фильтра"
+                    Margin="5"
+                    Click="BtnResetFiltr_Click"/>
+            <TextBlock Text="Поиск по названию порта"  Margin="5"/>
+
+
+            <TextBox Name="TxtSearchName"
+                     TextChanged="TxtSearchName_TextChanged"
+                     Height="50"/>
+
+
+            <Button Name="BtnAdd"
+                    Content="Добавление"
+                    Margin="5"
+                    Click="BtnAdd_Click"/>
+            <Button Name="BtnDelete"
+                    Content="Удаление"
+                    Margin="5"
+                    Click="BtnDelete_Click"/>
+            <Button Name="BtnGoListView"
+                    Content="Переход на ListView"
+                    Margin="5" 
+                    Click="BtnGoListView_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
